@@ -18,12 +18,12 @@ export default function Fetched(){
       ]
 
       try {
-        const results = await Promise.all(urls.map((url) => fetch(url).then((response) => response.json()
+        const response = await Promise.all(urls.map((url) => fetch(url).then((response) => response.json()
         )));
     
-        console.log(results);
+        console.log(response);
       } catch(error) {
-          console.error(error);
+          console.error("error",error);
         }
 
     setPeople(people);
@@ -31,7 +31,7 @@ export default function Fetched(){
 
   return(
     <div>
-      <div className="card-list" {...fetchAll}>
+      <div className="card-list" {...fetchAll()}>
         {people.map(person => 
         <div person={person.name} key={person.id} />
         )}
