@@ -1,8 +1,8 @@
 import React from 'react';
 import logo from './logo.svg';
-import './App.css';
-import SearchCharactrs from "./searchCharacters";
-import Fetched from './Fetched';
+import SearchCharactrs from "./components/searchCharacters";
+import Fetched from './components/Fetched';
+import './App.css'
 
 function App() {
   return (

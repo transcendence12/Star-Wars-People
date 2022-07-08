@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import PersonCard from "./personCard";
-// import axios from "axios";
 
 export default function SearchCharacters(){
     //states- input query, people

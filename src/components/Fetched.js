@@ -1,10 +1,12 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 export default function Fetched(){
 
   const [people, setPeople] = useState([]);
 
-  const fetchAll = async()=> {
+  
+  useEffect(()=>{
+    const fetchAll = async()=> {
       const urls = [
         "https://swapi.dev/api/people/1/",
         "https://swapi.dev/api/people/2/",
@@ -28,10 +30,12 @@ export default function Fetched(){
 
     setPeople(people);
   } 
+    fetchAll()
+  }, [])
 
   return(
     <div>
-      <div className="card-list" {...fetchAll()}>
+      <div className="card-list">
         {people.map(person => 
         <div person={person.name} key={person.id} />
         )}
