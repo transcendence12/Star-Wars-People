@@ -1,80 +1,78 @@
-
-import React, {useState} from 'react';
-import logo from './logo.svg';
-// import SearchCharactrs from "./components/searchCharacters";
-import Fetched from './components/Fetched';
-import './App.css'
+import React, { useEffect, useState } from "react";
+import { BrowserRouter, Route, Routes, NavLink } from 'react-router-dom'
+import NotFound from "./components/NotFound";
+import FavoritesPage from "./components/FavoritesPage";
+import Header from "./components/Header";
+import SearchCharactrs from "./components/SearchCharacters";
+import Fetched from "./components/Fetched";
+import Pagination from "./components/Pagination";
+import "./App.css";
 
 function App() {
+  let activeClassName = "nav-active";
   const [people, setPeople] = useState([]);
-    const fetchAll = async()=> {
-      // SPOSOB NR 1:
-      // const urls = [ 
-      //   "https://swapi.dev/api/people/1/",
-      //   "https://swapi.dev/api/people/2/",
-      //   "https://swapi.dev/api/people/3/",
-      //   "https://swapi.dev/api/people/4/",
-      //   "https://swapi.dev/api/people/5/",
-      //   "https://swapi.dev/api/people/6/",
-      //   "https://swapi.dev/api/people/7/",
-      //   "https://swapi.dev/api/people/8/",
-      //   "https://swapi.dev/api/people/9/"
-      // ]
+  const [currentPage, setCurrentPage] = useState(1);
+  const [peoplePerPage] = useState(2);
 
-      try {
-        // CD SPOSOBU NR 1
-        // const response = await Promise.all(urls.map((url) => fetch(url).then((response) => response.json()
-        // )));
-        // SPOSÓB NR 2:
-        const url = "https://swapi.dev/api/people/";
+  useEffect(() => {
+  
+    try{
+      const url = 'https://swapi.dev/api/people/';
+      fetch(url)
+      .then(response => {
+        return response.json()
 
-        const response = await fetch(url);
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json()
-        console.log(data);
-        // console.log(data.results);
-    
-        // console.log(response);
-        let slicedArray = [];
-        let chunkSize = 9;
-        for(let i = 0; i<response.length; i++){
-          const chunk = response.slice(i, i+chunkSize);
-          slicedArray.push(chunk);
-          // console.log(slicedArray)
-        }
-        // setPeople(response);
-      } catch(error) {
-          console.error("error",error);
-        }
-  } 
-    fetchAll()
+      })
+      .then(data => {
+        // console.log(data);
+        // setPeople(data.results);
+        setCurrentPage()
+        
+      })
+      
+    }catch(error) {
+      console.error("error",error);
+    }
 
+  }, []);
 
-
+  const indexOfLastPerson = currentPage * peoplePerPage;
+  const indexOfFirstPerson = indexOfLastPerson - peoplePerPage;
+  const currentPeople = people.slice(indexOfFirstPerson, indexOfLastPerson);
+  console.log(typeof indexOfFirstPerson, typeof indexOfLastPerson);
+  console.log(typeof currentPeople);
+  const paginate = pageNumber => setCurrentPage(pageNumber);
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <nav>
-          <ul>
-            <li><a href="/" className="first-item">Characters</a></li>
-            <li><a href="/">Favorites</a></li>
-          </ul>
+    <BrowserRouter>
+      <div className="container">
+        <Header/>
+        <nav className="navigation">
+          <NavLink to="" className={({ isActive }) => isActive && activeClassName}>Home</NavLink>
+          <NavLink to="/favorites" className={({ isActive }) => isActive && activeClassName}>Favorites</NavLink>
         </nav>
-      </header>
-      <main className="container">
-        <h1 className="title">Star Wars Characters Search</h1>
-        {/* <SearchCharactrs/> */}
-      </main>
-      {people.map((person) => {
-        return <Fetched person={person} key={person.name}/>
-      })}
-    </div>
+        <Routes>
+          <Route path='/'/>
+          <Route path='/favorites' element={<FavoritesPage/>} />
+          <Route path="*" element={<NotFound/>}/>
+        </Routes>
+        <main className="container-content">
+          <h1 className="title">Star Wars Characters Search</h1>
+          <SearchCharactrs/>
+        </main>
+        <section className="cards">
+          {people && people.map((person) => {
+              return <Fetched person={person} key={person.name} people={currentPeople} className="list-item"/>;
+            })}
+        </section>
+          <Pagination
+            peoplePerPage={peoplePerPage}
+            totalPeople={people.length}
+            paginate={paginate}
+          />
+      </div>
+    </BrowserRouter>
   );
-  }
-
+}
 
 export default App;
