@@ -92,7 +92,7 @@ input[type='text'] {
   text-align: center;
   padding: 0.625rem 0.938rem;
   border: 0;
-  margin: 0.625rem 0;
+  margin: 1rem 0;
 }
 
 .btn-search:hover {
@@ -108,8 +108,10 @@ input[type='text'] {
 .card {
   cursor: pointer;
   background-color: transparent;
-  height: 13.75rem;
+  height: 15.625rem;
   perspective: 1000px;
+  margin-top: 1.5rem;
+  border-radius: 10px;
 }
 
 .card h1 {
@@ -118,11 +120,22 @@ input[type='text'] {
   padding-bottom: 0.625rem;
   margin-bottom: 0.625rem;
 }
+.name {
+  margin-bottom: 1rem;
+  
+}
 
 .card img {
   width: 100%;
-  height: 13.75rem;
+  height: 15.625rem;
   object-fit: cover;
+}
+.block {
+  display: block;
+  border: none;
+  background-color: transparent;
+  text-transform: uppercase;
+  margin: 0 auto;
 }
 
 .card-inner {
@@ -131,6 +144,7 @@ input[type='text'] {
   height: 100%;
   transition: transform 0.8s;
   transform-style: preserve-3d;
+  border-radius: 10px;
 }
 
 .card:hover .card-inner {
@@ -144,6 +158,11 @@ input[type='text'] {
   height: 100%;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
+  border-radius: 5px;
+}
+.card-front {
+  background-color: #e1dede;
+  padding: 1.25rem;
 }
 
 .card-back {
@@ -170,8 +189,12 @@ input[type='text'] {
   }
   .card img {
     width: 100%;
-    height: 13.75rem;
+    height: 15.625rem;
     object-fit: contain;
   }
+}
+.pagination {
+  display: flex;
+  gap: 1rem;
 }
 

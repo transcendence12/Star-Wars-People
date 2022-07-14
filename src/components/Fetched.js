@@ -1,4 +1,6 @@
 import React from 'react';
+import { MdFavorite } from 'react-icons/md';
+import { GiReturnArrow } from 'react-icons/gi';
 
 const Fetched = ({person}) =>{
 
@@ -6,8 +8,9 @@ const Fetched = ({person}) =>{
     <div className='card'>
       <div className='card-inner'>
         <div className='card-front'>
-        <h2>{person.name}</h2>
-        <button>Add to ❤</button>
+        <h2 className='name'>{person.name}</h2>
+        <button className='block'><MdFavorite /></button>
+        <button className='block'><GiReturnArrow /></button>
         <i></i>
         </div>
         <div className='card-back'>
@@ -28,7 +31,7 @@ const Fetched = ({person}) =>{
             <li>
               <strong>Height:</strong> {person.height}
             </li>
-            <button>Add to ❤</button>
+            <button><MdFavorite /></button>
           </ul>
         </div>
       </div>

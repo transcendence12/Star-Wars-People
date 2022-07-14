@@ -25,7 +25,7 @@ function App() {
       })
       .then(data => {
         // console.log(data);
-        // setPeople(data.results);
+        setPeople(data.results);
         setCurrentPage()
         
       })
@@ -46,6 +46,11 @@ function App() {
   return (
     <BrowserRouter>
       <div className="container">
+        <Pagination
+            peoplePerPage={peoplePerPage}
+            totalPeople={people.length}
+            paginate={paginate}
+          />
         <Header/>
         <nav className="navigation">
           <NavLink to="" className={({ isActive }) => isActive && activeClassName}>Home</NavLink>
@@ -65,11 +70,7 @@ function App() {
               return <Fetched person={person} key={person.name} people={currentPeople} className="list-item"/>;
             })}
         </section>
-          <Pagination
-            peoplePerPage={peoplePerPage}
-            totalPeople={people.length}
-            paginate={paginate}
-          />
+
       </div>
     </BrowserRouter>
   );
