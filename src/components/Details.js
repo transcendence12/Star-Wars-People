@@ -2,7 +2,7 @@ import React from 'react';
 import { MdFavorite } from 'react-icons/md';
 import { GiReturnArrow } from 'react-icons/gi';
 
-const Fetched = ({person}) =>{
+const Details = ({person}) =>{
 
   return(
     <div className='card'>
@@ -39,4 +39,4 @@ const Fetched = ({person}) =>{
   )
 
 }
-export default Fetched;
+export default Details;
