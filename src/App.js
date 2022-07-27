@@ -5,7 +5,8 @@ import axios from 'axios';
 // import FavoritesPage from "./components/FavoritesPage";
 import Header from "./components/Header";
 import SearchCharactrs from "./components/SearchCharacters";
-import Details from "./components/Details";
+import Home from "./pages/Home";
+// import Details from "./components/Details";
 // import Pagination from "./components/Pagination";
 import "./App.css";
 
@@ -41,10 +42,10 @@ function App() {
     }
     (async () => {
       const starWarsPeople = await getAllStarWarsPeople();
-      console.log(starWarsPeople[0], starWarsPeople.length);
+      // console.log(starWarsPeople[0], starWarsPeople.length);
       setStarWarsPeople(starWarsPeople)
     })();
-
+    localStorage.setItem('starWarsPeople', JSON.stringify(starWarsPeople));
     // try{
     //   const url = 'https://swapi.dev/api/people/';
     //   fetch(url)
@@ -63,7 +64,7 @@ function App() {
     //   console.error("error",error);
     // }
 
-  }, []);
+  }, [starWarsPeople]);
   // w tablicy up w useEffect ma być starWarsPeople ale sie zapętla
 
   // const indexOfLastPerson = currentPage * peoplePerPage;
@@ -96,11 +97,12 @@ function App() {
           <h1 className="title">Star Wars Characters Search</h1>
           <SearchCharactrs/>
         </main>
-        <section className="cards">
+        <Home />
+        {/* <section className="cards">
           {starWarsPeople && starWarsPeople.map((person) => {
               return <Details person={person} key={person.name} className="list-item"/>;
             })}
-        </section>
+        </section> */}
         {/* <section className="cards">
           {people && people.map((person) => {
               return <Details person={person} key={person.name} starWarsPeople={currentPeople} people={currentPeople} className="list-item"/>;
